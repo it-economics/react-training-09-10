@@ -5,17 +5,21 @@ import {
   useContext,
   useState,
 } from 'react';
+import { Counter } from '../../components/counter/Counter';
 import Hello from '../../components/hello/Hello';
 import { Input } from '../../components/input/Input';
 
 export const Home: FC = () => {
   const [name, setName] = useState<string>(); // or: useState('') to automatically infer the type
+  const [show, setShow] = useState(false);
 
   return (
     <>
       <Hello name={name} />
       <Input onInputChange={(value) => setName(value)} />
       <DeeplyNested />
+      <button onClick={() => setShow(prev => !prev)}>Toggle counter</button>
+      {show && <Counter />}
     </>
   );
 };
