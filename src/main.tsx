@@ -1,7 +1,9 @@
+import { Typography } from '@mui/material';
 import { StrictMode } from 'react';
 import * as ReactDOM from 'react-dom/client';
 
 import App from './app/app';
+import { ErrorBoundary } from './app/components/error/ErrorBoundary';
 import { CustomThemeProvider } from './app/CustomThemeProvider';
 
 const root = ReactDOM.createRoot(
@@ -11,7 +13,9 @@ const root = ReactDOM.createRoot(
 root.render(
   <StrictMode>
     <CustomThemeProvider>
-      <App />
+      <ErrorBoundary fallback={<Typography variant="h1">Oh Shoot!</Typography>}>
+        <App />
+      </ErrorBoundary>
     </CustomThemeProvider>
   </StrictMode>
 );

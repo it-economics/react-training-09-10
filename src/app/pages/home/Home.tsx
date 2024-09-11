@@ -15,7 +15,7 @@ import Joke from '../../components/joke/Joke';
 import { SolarSystem } from '../../components/solar-system/SolarSystem';
 import { StarWars } from '../../components/star-wars/StarWars';
 
-import styles from './Home.module.css'
+import styles from './Home.module.css';
 
 export const Home: FC = () => {
   const [name, setName] = useState<string>(); // or: useState('') to automatically infer the type
