@@ -1,3 +1,4 @@
+import { Button, Typography } from '@mui/material';
 import { Component } from 'react';
 
 import styles from './Hello.module.css';
@@ -19,8 +20,8 @@ export class Hello extends Component<Props, State> {
   override render() {
     return (
       <div className={styles['container']}>
-        <button onClick={() => this.setState({visible: !this.state.visible})}>Toggle</button>
-        <p>Hello {this.state.visible && this.props.name}!</p>
+        <Button onClick={() => this.setState({visible: !this.state.visible})}>Toggle</Button>
+        <Typography>Hello {this.state.visible && this.props.name}!</Typography>
       </div>
     );
   }
