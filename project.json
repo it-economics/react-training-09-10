@@ -1,0 +1,10 @@
+{
+  "name": "react-training-2024-09-11--13",
+  "$schema": "node_modules/nx/schemas/project-schema.json",
+  "includedScripts": [],
+  "sourceRoot": "./src",
+  "projectType": "application",
+  "tags": [],
+  "// targets": "to see all targets run: nx show project react-training-2024-09-11--13 --web",
+  "targets": {}
+}
