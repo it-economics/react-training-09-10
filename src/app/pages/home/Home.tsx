@@ -1,3 +1,5 @@
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import { Button, Stack, Typography } from '@mui/material';
 import {
   createContext,
@@ -11,20 +13,34 @@ import Hello from '../../components/hello/Hello';
 import { Input } from '../../components/input/Input';
 import { SolarSystem } from '../../components/solar-system/SolarSystem';
 
+import styles from './Home.module.css'
+
 export const Home: FC = () => {
   const [name, setName] = useState<string>(); // or: useState('') to automatically infer the type
   const [show, setShow] = useState(false);
 
   return (
-    <Stack spacing={2}>
+    <Stack spacing={2} className={styles.home}>
       <Stack direction={'row'}>
         <Input onInputChange={(value) => setName(value)} />
         <Hello name={name} />
       </Stack>
       {/*<DeeplyNested />*/}
-      <Button onClick={() => setShow((prev) => !prev)}>
-        {show ? 'Hide counter' : 'Show counter'}
-      </Button>
+      {show ? (
+        <Button
+          startIcon={<VisibilityOffIcon />}
+          onClick={() => setShow((prev) => !prev)}
+        >
+          Hide counter
+        </Button>
+      ) : (
+        <Button
+          startIcon={<VisibilityIcon />}
+          onClick={() => setShow((prev) => !prev)}
+        >
+          Show counter
+        </Button>
+      )}
       {show && <Counter />}
       <SolarSystem />
     </Stack>
