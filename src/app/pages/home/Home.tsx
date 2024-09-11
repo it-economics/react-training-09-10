@@ -13,6 +13,7 @@ import Hello from '../../components/hello/Hello';
 import { Input } from '../../components/input/Input';
 import Joke from '../../components/joke/Joke';
 import { SolarSystem } from '../../components/solar-system/SolarSystem';
+import { StarWars } from '../../components/star-wars/StarWars';
 
 import styles from './Home.module.css'
 
@@ -45,6 +46,7 @@ export const Home: FC = () => {
       {show && <Counter />}
       <SolarSystem />
       <Joke />
+      <StarWars />
     </Stack>
   );
 };
