@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import { Planet } from '../model';
-import { PlanetsResponse } from './planet';
+import { PlanetResponse, PlanetsResponse } from './planet';
 
 const SWAPI_URL = 'https://swapi.dev/api';
-const SWAPI_PLANETS_URL = `${SWAPI_URL}/planets/`;
+const SWAPI_PLANETS_URL = `${SWAPI_URL}/planets`;
 
 const fetchPlanets = (url: string) =>
   fetch(url).then((response) => response.json() as unknown as PlanetsResponse);
@@ -32,7 +32,7 @@ export const usePlanets = (): UsePlanets => {
       .then((response) => {
         setNextUrl(response.next);
         setPreviousUrl(response.previous);
-        setPlanets(mapToModel(response));
+        setPlanets(response.results.map(mapToModel));
       })
       .catch(() => setError(true))
       .finally(() => setLoading(false));
@@ -50,8 +50,33 @@ export const usePlanets = (): UsePlanets => {
   };
 };
 
-const mapToModel = ({ results }: PlanetsResponse): Planet[] =>
-  results.map(({ terrain, ...planet }) => ({
-    ...planet,
-    terrain: terrain.split(',').map((t) => t.trim()),
-  }));
+const mapToModel = ({ terrain, ...planet }: PlanetResponse): Planet => ({
+  ...planet,
+  terrain: terrain.split(',').map((t) => t.trim()),
+});
+
+const fetchPlanet = (id: string) =>
+  fetch(`${SWAPI_PLANETS_URL}/${id}`).then(
+    (response) => response.json() as unknown as PlanetResponse
+  );
+
+export const usePlanet = (
+  id?: string
+): { loading: boolean; error: boolean; planet?: Planet } => {
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
+  const [planet, setPlanet] = useState<Planet>();
+
+  useEffect(() => {
+    if (!id) return; // Nothing to fetch!
+
+    setLoading(true);
+    fetchPlanet(id)
+      .then(mapToModel)
+      .then(setPlanet)
+      .catch(() => setError(true))
+      .finally(() => setLoading(false));
+  }, [id]);
+
+  return { loading, error, planet };
+};

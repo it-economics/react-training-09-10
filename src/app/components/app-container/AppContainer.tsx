@@ -13,7 +13,9 @@ export const AppContainer: FC = () => (
         </Toolbar>
       </Stack>
     </AppBar>
-    <Outlet />
+    <Box padding={"10px"}>
+      <Outlet />
+    </Box>
   </Box>
 );
 

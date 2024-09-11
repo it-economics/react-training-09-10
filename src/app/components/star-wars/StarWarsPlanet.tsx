@@ -1,30 +1,24 @@
-import {
-  Box,
-  List,
-  ListItemText,
-  Paper,
-  Stack,
-  Typography,
-} from '@mui/material';
+import { Box, Paper, Stack, Typography } from '@mui/material';
 import { FC } from 'react';
 import { Link } from 'react-router-dom';
 import { Planet } from './model';
 
-export const StarWarsPlanet: FC<{ planet: Planet }> = ({ planet }) => (
-  <Box height="100%" width="100%">
-    <Paper sx={{ height: '100%', width: '100%' }}>
-      <Stack spacing={2}>
-        <Stack direction={"row"} spacing={2}>
-          <Typography variant="h5">{planet.name}</Typography>
-          <Link to={`./${planet.name}`}>Show details</Link>
+const planetIdRegExp = /^.*\/(\d+)\/?$/; // Matches SWAPI URL with or without trailing slash
+
+export const StarWarsPlanet: FC<{ planet: Planet }> = ({ planet }) => {
+  const planetId = planetIdRegExp.exec(planet.url)?.[1];
+
+  return (
+    <Box height="100%" width="100%">
+      <Paper sx={{ height: '100%', width: '100%' }}>
+        <Stack spacing={2}>
+          <Stack direction={'row'} spacing={2}>
+            <Link to={`./${planetId}`}>
+              <Typography variant="h5">{planet.name}</Typography>
+            </Link>
+          </Stack>
         </Stack>
-        <Typography>Terrain:</Typography>
-        <List dense>
-          {planet.terrain.map((t) => (
-            <ListItemText key={t}>{t}</ListItemText>
-          ))}
-        </List>
-      </Stack>
-    </Paper>
-  </Box>
-);
+      </Paper>
+    </Box>
+  );
+};
