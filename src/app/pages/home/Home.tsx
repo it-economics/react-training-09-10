@@ -11,9 +11,6 @@ import {
 import { Counter } from '../../components/counter/Counter';
 import Hello from '../../components/hello/Hello';
 import { Input } from '../../components/input/Input';
-import Joke from '../../components/joke/Joke';
-import { SolarSystem } from '../../components/solar-system/SolarSystem';
-import { StarWars } from '../../components/star-wars/StarWars';
 
 import styles from './Home.module.css';
 
@@ -44,9 +41,6 @@ export const Home: FC = () => {
         </Button>
       )}
       {show && <Counter />}
-      <SolarSystem />
-      <Joke />
-      <StarWars />
     </Stack>
   );
 };
