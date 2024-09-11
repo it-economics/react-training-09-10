@@ -1,4 +1,4 @@
-import { Button, Typography } from '@mui/material';
+import { Button, Stack, Typography } from '@mui/material';
 import { Component } from 'react';
 
 import styles from './Hello.module.css';
@@ -19,10 +19,10 @@ export class Hello extends Component<Props, State> {
 
   override render() {
     return (
-      <div className={styles['container']}>
+      <Stack className={styles['container']} direction="row" alignItems="center">
         <Button onClick={() => this.setState({visible: !this.state.visible})}>Toggle</Button>
         <Typography>Hello {this.state.visible && this.props.name}!</Typography>
-      </div>
+      </Stack>
     );
   }
 }

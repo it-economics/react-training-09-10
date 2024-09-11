@@ -1,3 +1,4 @@
+import { Button, Stack, Typography } from '@mui/material';
 import {
   createContext,
   FC,
@@ -15,14 +16,18 @@ export const Home: FC = () => {
   const [show, setShow] = useState(false);
 
   return (
-    <>
-      <Hello name={name} />
-      <Input onInputChange={(value) => setName(value)} />
-      <DeeplyNested />
-      <button onClick={() => setShow((prev) => !prev)}>Toggle counter</button>
+    <Stack spacing={2}>
+      <Stack direction={'row'}>
+        <Input onInputChange={(value) => setName(value)} />
+        <Hello name={name} />
+      </Stack>
+      {/*<DeeplyNested />*/}
+      <Button onClick={() => setShow((prev) => !prev)}>
+        {show ? 'Hide counter' : 'Show counter'}
+      </Button>
       {show && <Counter />}
       <SolarSystem />
-    </>
+    </Stack>
   );
 };
 
@@ -59,10 +64,13 @@ const useNameFromNameContext = () => useContext(NameContext).name; // use custom
 const Nested = () => {
   const { name, setName } = useContext(NameContext);
 
-  const name2 = useNameFromNameContext() // use only name from context
+  const name2 = useNameFromNameContext(); // use only name from context
 
   return (
     <>
+      <Typography variant="h5" component="h2">
+        Deeply Nested Context
+      </Typography>
       <Hello name={name2} />
       <Input onInputChange={setName} />
     </>

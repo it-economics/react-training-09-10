@@ -1,17 +1,22 @@
+import { List, ListItem, ListItemText, Typography } from '@mui/material';
 import { Planet as PlanetModel } from '../planet/model';
 import { Planet } from '../planet/Planet';
 
 export const SolarSystem = () => {
   return (
     <>
-      <h1>Solar System</h1>
-      <ol>
+      <Typography variant="h3" component="h1">
+        Solar System
+      </Typography>
+      <List>
         {planets.map((planet) => (
-          <li key={planet.name}>
-            <Planet planet={planet} />
-          </li>
+          <ListItem key={planet.name} disablePadding>
+            <ListItemText>
+              <Planet planet={planet} />
+            </ListItemText>
+          </ListItem>
         ))}
-      </ol>
+      </List>
     </>
   );
 };
