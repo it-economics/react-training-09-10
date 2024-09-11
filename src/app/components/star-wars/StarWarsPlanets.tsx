@@ -6,11 +6,11 @@ import {
   Stack,
   Tooltip,
 } from '@mui/material';
-import { FC } from 'react';
+import { FC, PropsWithChildren } from 'react';
 import { usePlanets } from './api';
 import { StarWarsPlanet } from './StarWarsPlanet';
 
-export const StarWarsPlanets = () => {
+export const StarWarsPlanets: FC<PropsWithChildren> = ({ children }) => {
   const { error, loading, planets, previous, next } = usePlanets();
 
   if (error) return <div>Something went wrong...</div>;
@@ -29,6 +29,7 @@ export const StarWarsPlanets = () => {
         <NavButton loading={loading} label="Previous" onClick={previous} />
         <NavButton loading={loading} label="Next" onClick={next} />
       </Stack>
+      {children}
     </Stack>
   );
 };
