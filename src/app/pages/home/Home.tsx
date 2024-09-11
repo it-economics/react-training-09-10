@@ -53,12 +53,12 @@ const useNameFromNameContext = () => useContext(NameContext).name; // use custom
 const Nested = () => {
   const { name, setName } = useContext(NameContext);
 
-  const name2 = useNameFromNameContext()
+  const name2 = useNameFromNameContext() // use only name from context
 
   return (
     <>
-      <Hello name={name2} />;
-      <Input onInputChange={setName} />;
+      <Hello name={name2} />
+      <Input onInputChange={setName} />
     </>
   );
 };
