@@ -19,7 +19,7 @@ export class Hello extends Component<Props, State> {
 
   override render() {
     return (
-      <Stack className={styles['container']} direction="row" alignItems="center">
+      <Stack className={styles['container']} direction="row" alignItems="center" spacing={2}>
         <Button onClick={() => this.setState({visible: !this.state.visible})}>Toggle</Button>
         <Typography>Hello {this.state.visible && this.props.name}!</Typography>
       </Stack>

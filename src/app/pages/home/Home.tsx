@@ -21,7 +21,7 @@ export const Home: FC = () => {
 
   return (
     <Stack spacing={2} className={styles.home}>
-      <Stack direction={'row'}>
+      <Stack direction={'row'} spacing={2}>
         <Input onInputChange={(value) => setName(value)} />
         <Hello name={name} />
       </Stack>
