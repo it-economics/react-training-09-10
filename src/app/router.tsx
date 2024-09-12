@@ -4,7 +4,7 @@ import App from './app';
 import { SolarSystem } from './components/solar-system/SolarSystem';
 import { StarWarsPlanetDetails } from './components/star-wars/StarWarsPlanetDetails';
 import { StarWarsPlanets } from './components/star-wars/StarWarsPlanets';
-import { Home } from './pages/home/Home';
+import { Home } from './home/components/home/Home';
 import { Issues } from './issues';
 
 const Joke = lazy(() => import('./pages/joke'));

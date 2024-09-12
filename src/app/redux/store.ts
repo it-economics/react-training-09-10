@@ -1,8 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { issueTracketSlice } from '../issues/slice';
+import { homeSlice } from '../home/slice';
 
 export const store = configureStore({
   reducer: {
+    home: homeSlice.reducer,
     issueTracker: issueTracketSlice.reducer,
   },
 });

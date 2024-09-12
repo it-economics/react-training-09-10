@@ -8,20 +8,24 @@ import {
   useContext,
   useState,
 } from 'react';
-import { Counter } from '../../components/counter/Counter';
-import Hello from '../../components/hello/Hello';
-import { Input } from '../../components/input/Input';
+import { Counter } from '../counter/Counter';
+import Hello from '../hello/Hello';
+import { Input } from '../input/Input';
 
 import styles from './Home.module.css';
+import { updateName, useName } from '../../slice';
+import { useAppDispatch } from '../../../redux/hooks';
 
 export const Home: FC = () => {
-  const [name, setName] = useState<string>(); // or: useState('') to automatically infer the type
+  // const [name, setName] = useState<string>(); // or: useState('') to automatically infer the type
+  const name = useName();
+  const dispatch = useAppDispatch();
   const [show, setShow] = useState(false);
 
   return (
     <Stack spacing={2} className={styles.home}>
       <Stack direction={'row'} spacing={2}>
-        <Input onInputChange={(value) => setName(value)} />
+        <Input onInputChange={(value) => dispatch(updateName(value))} />
         <Hello name={name} />
       </Stack>
       {/*<DeeplyNested />*/}
@@ -52,7 +56,9 @@ type INameContext = {
 
 const NameContext = createContext<INameContext>({
   name: 'Foo Bar ABC',
-  setName: () => {},
+  setName: () => {
+    // do nothing
+  },
 });
 
 const DeeplyNested = () => {
