@@ -2,11 +2,10 @@ import { Box, Paper, Stack, Typography } from '@mui/material';
 import { FC } from 'react';
 import { Link } from 'react-router-dom';
 import { Planet } from './model';
-
-const planetIdRegExp = /^.*\/(\d+)\/?$/; // Matches SWAPI URL with or without trailing slash
+import { extractPlanetIdFromUrl } from './planet-utils';
 
 export const StarWarsPlanet: FC<{ planet: Planet }> = ({ planet }) => {
-  const planetId = planetIdRegExp.exec(planet.url)?.[1];
+  const planetId = extractPlanetIdFromUrl(planet.url);
 
   return (
     <Box height="100%" width="100%">

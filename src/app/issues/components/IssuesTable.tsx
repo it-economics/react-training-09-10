@@ -1,5 +1,6 @@
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import { issueFactory, IssuePriority } from '../model/issue';
+// import { memo } from 'react';
 
 const issues = [
   issueFactory(),
@@ -66,3 +67,6 @@ export const IssuesTable = () => {
 
   return <DataGrid columns={columns} rows={issues} />;
 };
+
+// avoid re-rendering the component when the parent re-renders if the passed properties are equal
+// export const IssuesTable = memo(_IssuesTable, (prev, next) => _.isEqual(prev, next)); // Pure components
