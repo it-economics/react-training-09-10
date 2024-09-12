@@ -7,7 +7,9 @@ import { CustomThemeProvider } from './app/CustomThemeProvider';
 import { router } from './app/router';
 import { Provider } from 'react-redux';
 import { store } from './app/redux/store';
+import { initI18n } from './app/i18n';
 
+initI18n();
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );

@@ -10,10 +10,12 @@ import {
 } from '@mui/x-data-grid';
 import { useIssuesHandling } from '../contexts/IssuesHandlingContext';
 import { IssuePriority } from '../model/issue';
+import { useEnumsTranslation } from '../../i18n';
 // import { memo } from 'react';
 
 export const IssuesTable = () => {
   const { issues, deleteIssue, updateIssue } = useIssuesHandling();
+  const { t: tEnum } = useEnumsTranslation('IssuePriority');
 
   const columns: GridColDef[] = [
     {
@@ -54,6 +56,7 @@ export const IssuesTable = () => {
       type: 'singleSelect',
       editable: true,
       valueOptions: Object.values(IssuePriority),
+      getOptionLabel: (value) => tEnum(value),
     },
     {
       field: 'createdAt',
