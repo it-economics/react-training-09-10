@@ -1,19 +1,20 @@
-import { DataGrid, GridColDef } from '@mui/x-data-grid';
-import { issueFactory, IssuePriority } from '../model/issue';
+import AddIcon from '@mui/icons-material/Add';
+import DeleteIcon from '@mui/icons-material/Delete';
+import SaveIcon from '@mui/icons-material/Save';
+import { Button } from '@mui/material';
+import {
+  DataGrid,
+  GridActionsCellItem,
+  GridColDef,
+  GridToolbarContainer,
+} from '@mui/x-data-grid';
+import { useIssues } from '../contexts/IssuesHandlingContext';
+import { IssuePriority } from '../model/issue';
 // import { memo } from 'react';
 
-const issues = [
-  issueFactory(),
-  issueFactory(),
-  issueFactory(),
-  issueFactory(),
-  issueFactory(),
-  issueFactory(),
-  issueFactory(),
-  issueFactory(),
-];
-
 export const IssuesTable = () => {
+  const { issues, deleteIssue } = useIssues();
+
   const columns: GridColDef[] = [
     {
       field: 'id',
@@ -63,9 +64,48 @@ export const IssuesTable = () => {
       sortable: true,
       editable: false,
     },
+    {
+      field: 'actions',
+      type: 'actions',
+      headerName: 'Actions',
+      width: 100,
+      getActions: ({ id }) => {
+        return [
+          <GridActionsCellItem
+            icon={<DeleteIcon />}
+            label="Delete"
+            className="textPrimary"
+            color="inherit"
+            onClick={() => deleteIssue(id as string)}
+          />,
+        ];
+      },
+    },
   ];
 
-  return <DataGrid columns={columns} rows={issues} />;
+  return (
+    <DataGrid
+      columns={columns}
+      rows={issues}
+      slots={{
+        toolbar: EditToolbar,
+      }}
+    />
+  );
+};
+
+const EditToolbar = () => {
+  const { addIssue, saveIssues } = useIssues();
+  return (
+    <GridToolbarContainer>
+      <Button startIcon={<AddIcon />} variant="contained" onClick={addIssue}>
+        Add Issue
+      </Button>
+      <Button startIcon={<SaveIcon />} variant="contained" onClick={saveIssues}>
+        Save
+      </Button>
+    </GridToolbarContainer>
+  );
 };
 
 // avoid re-rendering the component when the parent re-renders if the passed properties are equal

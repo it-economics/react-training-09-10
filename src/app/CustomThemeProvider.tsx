@@ -10,18 +10,18 @@ export const CustomThemeProvider: FC<PropsWithChildren> = ({ children }) => {
             defaultProps: {
               variant: 'contained',
               color: 'primary',
-              size: 'large'
-            }
-          }
+              size: 'medium',
+            },
+          },
         },
         palette: {
           primary: {
-            main: '#6E9C9F'
+            main: '#6E9C9F',
           },
           secondary: {
-            main: '#91DD98'
-          }
-        }
+            main: '#91DD98',
+          },
+        },
       }),
     []
   );
