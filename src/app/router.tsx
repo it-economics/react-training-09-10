@@ -5,6 +5,7 @@ import { SolarSystem } from './components/solar-system/SolarSystem';
 import { StarWarsPlanetDetails } from './components/star-wars/StarWarsPlanetDetails';
 import { StarWarsPlanets } from './components/star-wars/StarWarsPlanets';
 import { Home } from './pages/home/Home';
+import { Issues } from './issues';
 
 const Joke = lazy(() => import('./pages/joke'));
 const StarWars = lazy(() => import('./pages/star-wars'));
@@ -39,11 +40,12 @@ export const router = createBrowserRouter([
             ),
             children: [
               { index: true, element: null },
-              {path: ':id', element: <StarWarsPlanetDetails />},
+              { path: ':id', element: <StarWarsPlanetDetails /> },
             ],
           },
         ],
       },
+      { path: 'issues', element: <Issues /> },
       { path: '*', element: <NotFound /> },
     ],
   },

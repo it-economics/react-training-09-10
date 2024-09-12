@@ -13,7 +13,7 @@ export const AppContainer: FC = () => (
         </Toolbar>
       </Stack>
     </AppBar>
-    <Box padding={"10px"}>
+    <Box padding={'10px'}>
       <Outlet />
     </Box>
   </Box>
@@ -24,6 +24,7 @@ const links = [
   { to: '/star-wars', label: 'Star Wars' },
   { to: '/planets', label: 'Planets' },
   { to: '/joke', label: 'Joke' },
+  { to: '/issues', label: 'Issues' },
 ];
 
 interface MenuButtonProps {
