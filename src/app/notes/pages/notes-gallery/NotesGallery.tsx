@@ -1,5 +1,6 @@
 import AddIcon from '@mui/icons-material/Add';
 import { Box, Divider, Fab, Grid2 } from '@mui/material';
+import tinycolor from 'tinycolor2';
 import { useAddNote, useNotes } from '../../api/notes-api';
 import { NoteCard } from '../../components/NoteCard';
 
@@ -49,7 +50,7 @@ export const NotesGallery = () => {
         <Fab
           color="primary"
           aria-label={'add note'}
-          onClick={() => addNewNote({ title: 'new note 123123', text: '' })}
+          onClick={() => addNewNote({ title: 'new note', text: '', color: tinycolor.random().toHexString() })}
         >
           <AddIcon />
         </Fab>

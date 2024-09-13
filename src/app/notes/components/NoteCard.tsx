@@ -1,3 +1,4 @@
+import ColorLensIcon from '@mui/icons-material/ColorLens';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import SaveIcon from '@mui/icons-material/Save';
@@ -12,8 +13,10 @@ import {
   Stack,
   TextField,
   Typography,
+  useTheme,
 } from '@mui/material';
 import { FC, useEffect, useState } from 'react';
+import tinycolor from 'tinycolor2';
 import { useDeleteNote, useUpdateNote } from '../api/notes-api';
 import { Note } from '../model/notes';
 
@@ -28,6 +31,10 @@ export const NoteCard: FC<NoteCardProps> = ({ note }) => {
 
   const { mutateAsync: updateNote, isPending } = useUpdateNote();
   const { mutateAsync: deleteNote, isPending: isDeleting } = useDeleteNote();
+
+  const theme = useTheme();
+  const backgroundColor = note.color ?? theme.palette.primary.light;
+  const textColor = tinycolor(backgroundColor).isDark() ? 'white' : 'black';
 
   console.log('isPending', isPending);
 
@@ -44,16 +51,16 @@ export const NoteCard: FC<NoteCardProps> = ({ note }) => {
 
   return (
     <Card
-      sx={(theme) => ({
-        backgroundColor: theme.palette.primary.light,
-        color: 'white',
+      sx={{
+        backgroundColor,
+        color: textColor,
         '&:hover': {
           '& .actions': {
             opacity: '1 !important',
             pointerEvents: 'auto !important',
           },
         },
-      })}
+      }}
     >
       <CardContent>
         <Box height="200px">
@@ -110,6 +117,9 @@ export const NoteCard: FC<NoteCardProps> = ({ note }) => {
               onClick={() => updateNote({ ...note, favorite: !note.favorite })}
             >
               {note.favorite ? <StarIcon /> : <StarBorderIcon />}
+            </IconButton>
+            <IconButton color="inherit" onClick={() => updateNote({...note, color: tinycolor.random().toHexString()})}>
+              <ColorLensIcon />
             </IconButton>
             <IconButton
               color="inherit"
