@@ -21,8 +21,9 @@ export const useLogin = (loggedIn: VoidFunction) => {
   return (email: string, password: string) =>
     login(email, password)
       .then((token) => {
+        if (token) storeToken(token);
         loggedIn();
-        const deepLink = getDeepLink()
+        const deepLink = getDeepLink();
         if (deepLink) {
           return navigate(deepLink);
         }
@@ -49,6 +50,15 @@ export const useRegister = () => {
       .catch((err) => console.error(err));
 };
 
+const TOKEN_KEY = 'secret-token';
+
+const storeToken = (token: string) =>
+  window.localStorage.setItem(TOKEN_KEY, token);
+
+export const getToken = () => window.localStorage.getItem(TOKEN_KEY);
+
+export const invalidateToken = () => window.localStorage.removeItem(TOKEN_KEY);
+
 const DEEP_LINK_KEY = 'deep-link';
 
 export const storeDeepLink = (deepLink: string) =>
@@ -56,6 +66,6 @@ export const storeDeepLink = (deepLink: string) =>
 
 export const getDeepLink = () => {
   const deepLink = window.localStorage.getItem(DEEP_LINK_KEY);
-  window.localStorage.removeItem(DEEP_LINK_KEY)
+  window.localStorage.removeItem(DEEP_LINK_KEY);
   return deepLink;
 };

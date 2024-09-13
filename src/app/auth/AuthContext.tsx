@@ -5,7 +5,7 @@ import {
   useContext,
   useState,
 } from 'react';
-import { register, useLogin, useRegister } from './auth-utils';
+import { invalidateToken, register, useLogin, useRegister } from './auth-utils';
 
 interface IAuthContext {
   login: (email: string, password: string) => Promise<void>;
@@ -34,7 +34,10 @@ export const AuthContextProvider: FC<PropsWithChildren> = ({ children }) => {
         login,
         register,
         isAuthenticated: () => isLoggedIn,
-        logout: () => setIsLoggedIn(false),
+        logout: () => {
+          invalidateToken();
+          setIsLoggedIn(false);
+        },
       }}
     >
       {children}
