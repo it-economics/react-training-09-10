@@ -1,23 +1,21 @@
 import { Box, Button, Paper, Stack, TextField } from '@mui/material';
 import { Field, FieldProps, Form, Formik } from 'formik';
 import { Link } from 'react-router-dom';
-import { register } from '../../auth/auth-utils';
+import { login } from '../../auth/auth-utils';
 import { getErrors } from '../../utils/formik';
-import { RegistrationSchema } from './validation-schema';
+import { LoginSchema } from './validation-schema';
 
-interface RegisterFormState {
+interface LoginFormState {
   email: string;
   password: string;
-  repeatPassword: string;
 }
 
-const initialValues: RegisterFormState = {
+const initialValues: LoginFormState = {
   email: '',
   password: '',
-  repeatPassword: '',
 };
 
-export const RegisterForm = () => {
+export const LoginForm = () => {
   return (
     <Box
       sx={(theme) => ({
@@ -38,17 +36,18 @@ export const RegisterForm = () => {
       >
         <Formik
           initialValues={initialValues}
-          validationSchema={RegistrationSchema}
+          validationSchema={LoginSchema}
           onSubmit={(values, { setSubmitting }) => {
             console.log({ values });
-            register(values.email, values.password)
-              .finally(() => setSubmitting(false));
+            login(values.email, values.password).finally(() =>
+              setSubmitting(false)
+            );
           }}
         >
-          {({isValid, isSubmitting, dirty}) => (
+          {({ isValid, isSubmitting, dirty }) => (
             <Form>
               <Stack spacing={3}>
-                <h1>Registration</h1>
+                <h1>Login</h1>
                 <Field name="email">
                   {({ field, form }: FieldProps<string>) => (
                     <TextField
@@ -71,22 +70,15 @@ export const RegisterForm = () => {
                     />
                   )}
                 </Field>
-                <Field name="repeatPassword">
-                  {({ field, form }: FieldProps<string>) => (
-                    <TextField
-                      {...field}
-                      label={'Repeat Password'}
-                      type={'password'}
-                      error={!!getErrors(field.name, form)}
-                      helperText={getErrors(field.name, form)}
-                    />
-                  )}
-                </Field>
-                <Button variant={'contained'} type={'submit'} disabled={isSubmitting || !isValid || !dirty}>
-                  Register
+                <Button
+                  variant={'contained'}
+                  type={'submit'}
+                  disabled={isSubmitting || !isValid || !dirty}
+                >
+                  Login
                 </Button>
                 <Stack direction="row-reverse">
-                  <Link to={'/login'}>Login</Link>
+                  <Link to={'/register'}>Register</Link>
                 </Stack>
               </Stack>
             </Form>

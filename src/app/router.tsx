@@ -11,6 +11,7 @@ const Joke = lazy(() => import('./pages/joke'));
 const StarWars = lazy(() => import('./pages/star-wars'));
 const NotFound = lazy(() => import('./pages/not-found'));
 const RegisterPage = lazy(() => import('./pages/register'));
+const LoginPage = lazy(() => import('./pages/login'));
 
 export const router = createBrowserRouter([
   {
@@ -48,6 +49,7 @@ export const router = createBrowserRouter([
       },
       { path: 'issues', element: <Issues /> },
       { path: 'register', element: <RegisterPage /> },
+      { path: 'login', element: <LoginPage /> },
       { path: '*', element: <NotFound /> },
     ],
   },
