@@ -31,6 +31,13 @@ const addNote = (note: Note) =>
 
 const NOTES_QUERY_KEY = ['notes'];
 
+const updateNote = (note: Note) =>
+  fetch(`${API_URL}/notes/${note.id}`, {
+    method: 'PATCH',
+    body: JSON.stringify({ note }), // {note: {id: ', title: '', ...}}
+    ...getHeaders(),
+  });
+
 export const useNotes = () => {
   const { data } = useQuery({ queryKey: NOTES_QUERY_KEY, queryFn: fetchNotes });
   return data ?? [];
@@ -40,6 +47,16 @@ export const useAddNote = () => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: addNote,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: NOTES_QUERY_KEY });
+    },
+  });
+};
+
+export const useUpdateNote = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: updateNote,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: NOTES_QUERY_KEY });
     },
