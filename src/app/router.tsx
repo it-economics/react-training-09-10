@@ -10,6 +10,7 @@ import { Home } from './home/components/home/Home';
 import { Issues } from './issues';
 
 const Joke = lazy(() => import('./pages/joke'));
+const NotesPage = lazy(() => import('./notes/pages/notes-gallery'));
 const StarWars = lazy(() => import('./pages/star-wars'));
 const NotFound = lazy(() => import('./pages/not-found'));
 const RegisterPage = lazy(() => import('./pages/register'));
@@ -35,6 +36,7 @@ export const router = createBrowserRouter([
           },
           { path: 'planets', element: <SolarSystem /> },
           { path: 'joke', element: <Joke /> },
+          {path: 'notes', element: <NotesPage />},
           {
             path: 'star-wars',
             element: <StarWars />,

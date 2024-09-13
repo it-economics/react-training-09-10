@@ -35,6 +35,7 @@ const links = [
   { to: '/planets', label: 'Planets' },
   { to: '/joke', label: 'Joke' },
   { to: '/issues', label: 'Issues' },
+  { to: '/notes', label: 'Notes' },
 ];
 
 interface MenuButtonProps {
