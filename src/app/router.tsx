@@ -1,6 +1,7 @@
 import { lazy } from 'react';
 import { createBrowserRouter, Navigate, Outlet } from 'react-router-dom';
 import App from './app';
+import { AuthContextProvider } from './auth/AuthContext';
 import { SolarSystem } from './components/solar-system/SolarSystem';
 import { StarWarsPlanetDetails } from './components/star-wars/StarWarsPlanetDetails';
 import { StarWarsPlanets } from './components/star-wars/StarWarsPlanets';
@@ -16,38 +17,48 @@ const LoginPage = lazy(() => import('./pages/login'));
 export const router = createBrowserRouter([
   {
     path: '',
-    element: <App />,
+    element: (
+      <AuthContextProvider>
+        <Outlet />
+      </AuthContextProvider>
+    ),
     children: [
-      { index: true, element: <Navigate to={'./home'} replace={true} /> },
       {
-        path: 'home',
-        element: <Home />,
-      },
-      { path: 'planets', element: <SolarSystem /> },
-      { path: 'joke', element: <Joke /> },
-      {
-        path: 'star-wars',
-        element: <StarWars />,
+        path: '',
+        element: <App />,
         children: [
+          { index: true, element: <Navigate to={'./home'} replace={true} /> },
           {
-            index: true,
-            element: <Navigate to={'./planets'} replace={true} />,
+            path: 'home',
+            element: <Home />,
           },
+          { path: 'planets', element: <SolarSystem /> },
+          { path: 'joke', element: <Joke /> },
           {
-            path: 'planets',
-            element: (
-              <StarWarsPlanets>
-                <Outlet />
-              </StarWarsPlanets>
-            ),
+            path: 'star-wars',
+            element: <StarWars />,
             children: [
-              { index: true, element: null },
-              { path: ':id', element: <StarWarsPlanetDetails /> },
+              {
+                index: true,
+                element: <Navigate to={'./planets'} replace={true} />,
+              },
+              {
+                path: 'planets',
+                element: (
+                  <StarWarsPlanets>
+                    <Outlet />
+                  </StarWarsPlanets>
+                ),
+                children: [
+                  { index: true, element: null },
+                  { path: ':id', element: <StarWarsPlanetDetails /> },
+                ],
+              },
             ],
           },
+          { path: 'issues', element: <Issues /> },
         ],
       },
-      { path: 'issues', element: <Issues /> },
       { path: 'register', element: <RegisterPage /> },
       { path: 'login', element: <LoginPage /> },
       { path: '*', element: <NotFound /> },

@@ -1,7 +1,7 @@
 import { Box, Button, Paper, Stack, TextField } from '@mui/material';
 import { Field, FieldProps, Form, Formik } from 'formik';
 import { Link } from 'react-router-dom';
-import { register } from '../../auth/auth-utils';
+import { useAuthContext } from '../../auth/AuthContext';
 import { getErrors } from '../../utils/formik';
 import { RegistrationSchema } from './validation-schema';
 
@@ -18,6 +18,8 @@ const initialValues: RegisterFormState = {
 };
 
 export const RegisterForm = () => {
+  const {register} = useAuthContext()
+
   return (
     <Box
       sx={(theme) => ({

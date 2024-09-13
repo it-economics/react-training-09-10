@@ -1,7 +1,7 @@
 import { Box, Button, Paper, Stack, TextField } from '@mui/material';
 import { Field, FieldProps, Form, Formik } from 'formik';
 import { Link } from 'react-router-dom';
-import { login } from '../../auth/auth-utils';
+import { useAuthContext } from '../../auth/AuthContext';
 import { getErrors } from '../../utils/formik';
 import { LoginSchema } from './validation-schema';
 
@@ -16,6 +16,8 @@ const initialValues: LoginFormState = {
 };
 
 export const LoginForm = () => {
+  const {login} = useAuthContext();
+
   return (
     <Box
       sx={(theme) => ({
