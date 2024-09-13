@@ -21,11 +21,15 @@ export const useLogin = (loggedIn: VoidFunction) => {
   return (email: string, password: string) =>
     login(email, password)
       .then((token) => {
-        loggedIn()
+        loggedIn();
+        const deepLink = getDeepLink()
+        if (deepLink) {
+          return navigate(deepLink);
+        }
         navigate('/home');
       })
       .catch((err) => console.error(err));
-}
+};
 
 const generateAuthHeader = (email: string, password: string) => {
   return `Basic ${email}:${sha256(password)}`;
@@ -43,4 +47,15 @@ export const useRegister = () => {
     register(email, password)
       .then(() => navigate('/login'))
       .catch((err) => console.error(err));
+};
+
+const DEEP_LINK_KEY = 'deep-link';
+
+export const storeDeepLink = (deepLink: string) =>
+  window.localStorage.setItem(DEEP_LINK_KEY, deepLink);
+
+export const getDeepLink = () => {
+  const deepLink = window.localStorage.getItem(DEEP_LINK_KEY);
+  window.localStorage.removeItem(DEEP_LINK_KEY)
+  return deepLink;
 };
