@@ -1,5 +1,8 @@
+import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import SaveIcon from '@mui/icons-material/Save';
+import StarIcon from '@mui/icons-material/Star';
+import StarBorderIcon from '@mui/icons-material/StarBorder';
 import {
   Box,
   Card,
@@ -11,7 +14,7 @@ import {
   Typography,
 } from '@mui/material';
 import { FC, useEffect, useState } from 'react';
-import { useUpdateNote } from '../api/notes-api';
+import { useDeleteNote, useUpdateNote } from '../api/notes-api';
 import { Note } from '../model/notes';
 
 interface NoteCardProps {
@@ -24,6 +27,7 @@ export const NoteCard: FC<NoteCardProps> = ({ note }) => {
   const [text, setText] = useState(note.text);
 
   const { mutateAsync: updateNote, isPending } = useUpdateNote();
+  const { mutateAsync: deleteNote, isPending: isDeleting } = useDeleteNote();
 
   console.log('isPending', isPending);
 
@@ -101,6 +105,19 @@ export const NoteCard: FC<NoteCardProps> = ({ note }) => {
                 <EditIcon />
               </IconButton>
             )}
+            <IconButton
+              color="inherit"
+              onClick={() => updateNote({ ...note, favorite: !note.favorite })}
+            >
+              {note.favorite ? <StarIcon /> : <StarBorderIcon />}
+            </IconButton>
+            <IconButton
+              color="inherit"
+              onClick={() => deleteNote(note.id)}
+              disabled={isDeleting}
+            >
+              <DeleteIcon />
+            </IconButton>
           </Box>
         </Stack>
       </CardActions>

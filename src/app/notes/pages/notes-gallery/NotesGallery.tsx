@@ -5,17 +5,18 @@ import { NoteCard } from '../../components/NoteCard';
 
 export const NotesGallery = () => {
   const notes = useNotes();
+
   const { mutateAsync: addNewNote } = useAddNote();
 
   const favoriteNotes = notes.filter((note) => note.favorite);
   const regularNotes = notes.filter((note) => !note.favorite);
 
   return (
-    <Box sx={{ width: '100%', height: 'calc(100% - 40px)' }}>
+    <Box sx={{ width: '100%', height: 'calc(100vh - 40px)' }}>
       <Box
         sx={{
-          width: 'calc(100% - 4rem)',
-          height: 'calc(100% - 4rem)',
+          width: 'calc(100vw - 4rem)',
+          height: 'calc(100vh - 4rem)',
           position: 'relative',
           padding: '2rem',
           overflow: 'auto',
@@ -33,7 +34,7 @@ export const NotesGallery = () => {
                 </Grid2>
               ))}
             </Grid2>
-            <Divider />
+            <Divider sx={{my: '2rem'}} />
           </>
         )}
         <Grid2 container spacing={2}>
