@@ -10,13 +10,14 @@ import { Issues } from './issues';
 const Joke = lazy(() => import('./pages/joke'));
 const StarWars = lazy(() => import('./pages/star-wars'));
 const NotFound = lazy(() => import('./pages/not-found'));
+const RegisterPage = lazy(() => import('./pages/register'));
 
 export const router = createBrowserRouter([
   {
     path: '',
     element: <App />,
     children: [
-      { index: true, element: <Navigate to={'/home'} replace={true} /> },
+      { index: true, element: <Navigate to={'./home'} replace={true} /> },
       {
         path: 'home',
         element: <Home />,
@@ -46,6 +47,7 @@ export const router = createBrowserRouter([
         ],
       },
       { path: 'issues', element: <Issues /> },
+      { path: 'register', element: <RegisterPage /> },
       { path: '*', element: <NotFound /> },
     ],
   },
